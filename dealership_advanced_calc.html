@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealership Financial Performance Tool</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --primary: #1e3a8a;
+            --secondary: #0d9488;
+            --danger: #ef4444;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 35px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-panel {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .prefix, .suffix {
+            position: absolute;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .prefix { left: 12px; }
+        .suffix { right: 12px; }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        input.has-prefix { padding-left: 28px; }
+        input.has-suffix { padding-right: 65px; }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+
+        /* Results & Tables Layout */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        tr.highlight-row {
+            background-color: #f8fafc;
+            font-weight: 600;
+        }
+
+        tr.net-profit-row {
+            background-color: #f0fdf4;
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 16px;
+            border-top: 2px solid var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .text-right { text-align: right; }
+        .text-danger { color: var(--danger); }
+        .text-primary { color: var(--primary); }
+        .text-secondary { color: var(--secondary); }
+
+        /* Breakdown Progress Track */
+        .chart-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-track {
+            background: #e2e8f0;
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .fill-net { background-color: var(--secondary); }
+        .fill-expenses { background-color: var(--danger); }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+            color: var(--text-muted);
+        }
+        .legend-item span { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dealership Financial Performance Tool</h1>
+    <div class="subtitle">Based on regular weekly volume velocities mapped over 52-week operating cycles</div>
+    
+    <div class="grid-layout">
+        <!-- Input Frame -->
+        <div class="input-panel">
+            <div class="section-title">Revenue & Volume</div>
+            
+            <div class="form-group">
+                <label for="cars-per-week">Vehicles Sold / Week</label>
+                <div class="input-wrapper">
+                    <input type="number" id="cars-per-week" value="10" min="0" step="1">
+                    <span class="suffix">Cars</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="price-per-car">Average Price per Vehicle</label>
+                <div class="input-wrapper">
+                    <span class="prefix">$</span>
+                    <input type="number" id="price-per-car" class="has-prefix" value="35000" min="0" step="500">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="profit-per-car">Average Gross Profit per Vehicle</label>
+                <div class="input-wrapper">
+                    <span class="prefix">$</span>
+                    <input type="number" id="profit-per-car" class="has-prefix" value="3000" min="0" step="100">
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 30px;">Monthly Fixed Overhead</div>
+            
+            <div class="form-group">
+                <label for="monthly-expenses">Total Monthly Expenses</label>
+                <div class="input-wrapper">
+                    <span class="prefix">$</span>
+                    <input type="number" id="monthly-expenses" class="has-prefix" value="25000" min="0" step="500">
+                </div>
+                <small style="color: var(--text-muted); font-size: 11px; display: block; margin-top: 4px;">
+                    Includes payroll, floorplan interest, rent, facility maintenance, and marketing.
+                </small>
+            </div>
+        </div>
+
+        <!-- Output Frame -->
+        <div class="results-panel">
+            <!-- Data Matrix Table -->
+            <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Performance Metric</th>
+                            <th class="text-right">Monthly Context</th>
+                            <th class="text-right">Yearly Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Volume Velocity (Units Sold)</td>
+                            <td id="td-vol-month" class="text-right">0</td>
+                            <td id="td-vol-year" class="text-right" style="font-weight: 600;">0</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>Total Dealership Revenue</td>
+                            <td id="td-rev-month" class="text-right text-primary">$0</td>
+                            <td id="td-rev-year" class="text-right text-primary">$0</td>
+                        </tr>
+                        <tr>
+                            <td>Total Gross Profit (Front/Back End)</td>
+                            <td id="td-gross-month" class="text-right">$0</td>
+                            <td id="td-gross-year" class="text-right">$0</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>Operating Expenses (Overhead)</td>
+                            <td id="td-exp-month" class="text-right text-danger">$0</td>
+                            <td id="td-exp-year" class="text-right text-danger">$0</td>
+                        </tr>
+                        <tr class="net-profit-row">
+                            <td>Net Operating Income (Pre-Tax)</td>
+                            <td id="td-net-month" class="text-right">$0</td>
+                            <td id="td-net-year" class="text-right">$0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Operational Efficiency Visualization -->
+            <div class="chart-card">
+                <div class="bar-label">
+                    <span>Gross Profit Breakdown Ratio</span>
+                    <span id="efficiency-metric">0% Net Yield</span>
+                </div>
+                <div class="progress-track">
+                    <div id="bar-net" class="progress-fill fill-net" style="width: 50%;"></div>
+                    <div id="bar-expenses" class="progress-fill fill-expenses" style="width: 50%;"></div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><span style="color: var(--secondary);">■</span> Net Income Yield</div>
+                    <div class="legend-item"><span style="color: var(--danger);">■</span> Overhead Consumption</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Inputs
+    const inputWeeklyCars = document.getElementById('cars-per-week');
+    const inputPricePerCar = document.getElementById('price-per-car');
+    const inputProfitPerCar = document.getElementById('profit-per-car');
+    const inputMonthlyExpenses = document.getElementById('monthly-expenses');
+
+    // Table Displays
+    const tdVolMonth = document.getElementById('td-vol-month');
+    const tdVolYear = document.getElementById('td-vol-year');
+    const tdRevMonth = document.getElementById('td-rev-month');
+    const tdRevYear = document.getElementById('td-rev-year');
+    const tdGrossMonth = document.getElementById('td-gross-month');
+    const tdGrossYear = document.getElementById('td-gross-year');
+    const tdExpMonth = document.getElementById('td-exp-month');
+    const tdExpYear = document.getElementById('td-exp-year');
+    const tdNetMonth = document.getElementById('td-net-month');
+    const tdNetYear = document.getElementById('td-net-year');
+
+    // Chart Components
+    const barNet = document.getElementById('bar-net');
+    const barExpenses = document.getElementById('bar-expenses');
+    const efficiencyMetric = document.getElementById('efficiency-metric');
+
+    function formatCurrency(val) {
+        return '$' + Math.round(val).toLocaleString();
+    }
+
+    function calculateFinancials() {
+        // Read raw structural numbers
+        const weeklyUnits = parseFloat(inputWeeklyCars.value) || 0;
+        const pricePerUnit = parseFloat(inputPricePerCar.value) || 0;
+        const grossPerUnit = parseFloat(inputProfitPerCar.value) || 0;
+        const operationalExpensesMonth = parseFloat(inputMonthlyExpenses.value) || 0;
+
+        // Calendar formulas conversion rules:
+        // 52 weeks in a calendar fiscal year
+        const yearlyUnits = weeklyUnits * 52;
+        const monthlyUnits = yearlyUnits / 12;
+
+        // Base revenue tracking
+        const monthlyRevenue = monthlyUnits * pricePerUnit;
+        const yearlyRevenue = yearlyUnits * pricePerUnit;
+
+        // Gross Profit accumulation parameters
+        const monthlyGross = monthlyUnits * grossPerUnit;
+        const yearlyGross = yearlyUnits * grossPerUnit;
+
+        // Operating Overhead scaling
+        const yearlyExpenses = operationalExpensesMonth * 12;
+
+        // Net Operating Income equations
+        const monthlyNet = monthlyGross - operationalExpensesMonth;
+        const yearlyNet = yearlyGross - yearlyExpenses;
+
+        // Render fields out to data columns
+        tdVolMonth.innerText = monthlyUnits.toFixed(1);
+        tdVolYear.innerText = yearlyUnits.toLocaleString();
+
+        tdRevMonth.innerText = formatCurrency(monthlyRevenue);
+        tdRevYear.innerText = formatCurrency(yearlyRevenue);
+
+        tdGrossMonth.innerText = formatCurrency(monthlyGross);
+        tdGrossYear.innerText = formatCurrency(yearlyGross);
+
+        tdExpMonth.innerText = formatCurrency(operationalExpensesMonth);
+        tdExpYear.innerText = formatCurrency(yearlyExpenses);
+
+        tdNetMonth.innerText = formatCurrency(monthlyNet);
+        tdNetYear.innerText = formatCurrency(yearlyNet);
+
+        // Manage visual percentage yields against the dealership's Gross Margin Pools
+        if (monthlyGross > 0) {
+            // Cap visual variables at realistic positive scale barriers
+            const expenseRatio = Math.min(Math.max((operationalExpensesMonth / monthlyGross) * 100, 0), 100);
+            const netRatio = Math.max(100 - expenseRatio, 0);
+
+            barNet.style.width = netRatio + '%';
+            barExpenses.style.width = expenseRatio + '%';
+            
+            const yieldPercent = (monthlyNet / monthlyGross) * 100;
+            efficiencyMetric.innerText = (monthlyNet >= 0 ? '+' : '') + yieldPercent.toFixed(1) + '% Net Retention';
+        } else {
+            barNet.style.width = '0%';
+            barExpenses.style.width = '100%';
+            efficiencyMetric.innerText = '0% Net Retention';
+        }
+    }
+
+    // Input listeners
+    inputWeeklyCars.addEventListener('input', calculateFinancials);
+    inputPricePerCar.addEventListener('input', calculateFinancials);
+    inputProfitPerCar.addEventListener('input', calculateFinancials);
+    inputMonthlyExpenses.addEventListener('input', calculateFinancials);
+
+    // Bootstrap tool initial cycle run
+    calculateFinancials();
+</script>
+
+</body>
+</html>
