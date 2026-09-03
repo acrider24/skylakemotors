@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Lake Motors LLC | Premium Independent Dealership in Orlando, FL</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            800: '#18181b',
+                            900: '#09090b',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif-heading { font-family: 'Playfair Display', serif; }
+        .glass-card {
+            background: rgba(24, 24, 27, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-slate-100 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-dark-950/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform shrink-0">
+                        <i class="fa-solid fa-car-side text-lg"></i>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="text-lg font-bold tracking-tight text-white block leading-tight">SKY LAKE MOTORS</span>
+                        <span class="text-[10px] uppercase tracking-widest text-brand-500 font-semibold leading-tight">Independent Dealership</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#about" class="hover:text-brand-500 transition-colors">About Us</a>
+                    <a href="#experience" class="hover:text-brand-500 transition-colors">The Experience</a>
+                    <a href="#services" class="hover:text-brand-500 transition-colors">Concierge Services</a>
+                    <a href="#contact" class="hover:text-brand-500 transition-colors">Contact Sales</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden sm:flex items-center gap-4">
+                    <a href="tel:3212097929" class="text-sm text-slate-300 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-brand-500"></i>
+                        <span>(321) 209-7929</span>
+                    </a>
+                    <a href="#contact" class="bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-brand-600/25 transition-all hover:shadow-brand-500/40">
+                        Reach Sales
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2">
+                    <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-dark-900 border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="mobile-nav-link block py-2 text-slate-300 hover:text-brand-500 font-medium">About Us</a>
+            <a href="#experience" class="mobile-nav-link block py-2 text-slate-300 hover:text-brand-500 font-medium">The Experience</a>
+            <a href="#services" class="mobile-nav-link block py-2 text-slate-300 hover:text-brand-500 font-medium">Concierge Services</a>
+            <a href="#contact" class="mobile-nav-link block py-2 text-slate-300 hover:text-brand-500 font-medium">Contact Sales</a>
+            <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
+                <a href="tel:3212097929" class="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 text-slate-200">
+                    <i class="fa-solid fa-phone text-brand-500"></i>
+                    <span>(321) 209-7929</span>
+                </a>
+                <a href="#contact" class="mobile-nav-link text-center bg-brand-600 text-white font-semibold py-2.5 rounded-xl">
+                    Reach Sales Team
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-gradient-to-b from-dark-900 via-dark-950 to-dark-950">
+        <!-- Ambient Glow Elements -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-sky-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-500 text-xs font-semibold tracking-wide uppercase mb-6">
+                    <i class="fa-solid fa-location-dot text-xs"></i> Orlando, Florida &bull; Orange County
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight font-serif-heading mb-6">
+                    A Better Way to Buy.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 via-sky-300 to-brand-600">The Sky Lake Motors Experience.</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-400 font-light leading-relaxed mb-8">
+                    Welcome to <strong>Sky Lake Motors LLC</strong>. We are an independent dealership in Orlando dedicated to delivering a tailored, stress-free automotive experience centered around quality, transparency, and personal attention.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl shadow-xl shadow-brand-600/25 transition-all hover:scale-[1.02] flex items-center justify-center gap-3">
+                        <span>Contact Sales Team</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="tel:3212097929" class="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 font-semibold rounded-xl transition-all flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-phone text-brand-500"></i>
+                        <span>Call Us Direct</span>
+                    </a>
+                </div>
+
+                <!-- Feature Highlights Bar -->
+                <div class="mt-14 pt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-3">
+                        <p class="text-2xl lg:text-3xl font-bold text-white mb-1">Tailored</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider">Personalized Service</p>
+                    </div>
+                    <div class="p-3">
+                        <p class="text-2xl lg:text-3xl font-bold text-brand-500 mb-1">Strict</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider">Inspection Standards</p>
+                    </div>
+                    <div class="p-3">
+                        <p class="text-2xl lg:text-3xl font-bold text-white mb-1">Zero</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider">High-Pressure Tactics</p>
+                    </div>
+                    <div class="p-3">
+                        <p class="text-2xl lg:text-3xl font-bold text-white mb-1">100%</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider">Upfront Transparency</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <div>
+                    <div class="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-brand-500 text-xs font-semibold tracking-wider uppercase mb-4">
+                        About Sky Lake Motors LLC
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white font-serif-heading mb-6 leading-tight">
+                        Built Around Integrity and True Customer Care.
+                    </h2>
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        At <strong>Sky Lake Motors LLC</strong>, we believe purchasing a pre-owned vehicle should feel easy, informative, and completely transparent. As an independent dealership in Orange County, Florida, we’ve replaced the rigid corporate structure of traditional dealerships with a flexible, customer-first mindset.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        We take extreme pride in every vehicle we represent. Each vehicle undergoes thorough mechanical evaluation and detailing to ensure reliability and satisfaction from the moment you drive off.
+                    </p>
+
+                    <ul class="space-y-4 text-slate-300 mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center text-xs shrink-0 mt-1"><i class="fa-solid fa-check"></i></span>
+                            <span><strong>Selective Inventory:</strong> Hand-vetted pre-owned vehicles selected for dependability and long-term value.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center text-xs shrink-0 mt-1"><i class="fa-solid fa-check"></i></span>
+                            <span><strong>Clear & Honest Pricing:</strong> No unexpected gimmicks, hidden fees, or convoluted negotiations.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center text-xs shrink-0 mt-1"><i class="fa-solid fa-check"></i></span>
+                            <span><strong>Dedicated Support:</strong> Work directly with knowledgeable specialists who listen to your needs.</span>
+                        </li>
+                    </ul>
+
+                    <a href="#contact" class="inline-flex items-center gap-2 text-brand-500 hover:text-brand-400 font-semibold text-sm group">
+                        <span>Connect with our sales team today</span>
+                        <i class="fa-solid fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Feature Card -->
+                <div class="relative">
+                    <div class="glass-card rounded-2xl p-8 relative z-10 space-y-6">
+                        <div class="flex items-center gap-4 border-b border-white/10 pb-6">
+                            <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg">Sky Lake Motors Guarantee</h3>
+                                <p class="text-xs text-slate-400">1375 W. Landstreet Rd, Orlando, FL 32824</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="bg-dark-950/60 p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-clipboard-check text-brand-500"></i>
+                                    <span class="text-sm font-medium text-slate-200">Multi-Point Vehicle Audit</span>
+                                </div>
+                                <span class="text-xs text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-full font-medium">Verified</span>
+                            </div>
+
+                            <div class="bg-dark-950/60 p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-shield-halved text-brand-500"></i>
+                                    <span class="text-sm font-medium text-slate-200">Florida Title Integrity</span>
+                                </div>
+                                <span class="text-xs text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-full font-medium">Guaranteed</span>
+                            </div>
+
+                            <div class="bg-dark-950/60 p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-handshake-simple text-brand-500"></i>
+                                    <span class="text-sm font-medium text-slate-200">Direct Sales Consultation</span>
+                                </div>
+                                <span class="text-xs text-brand-500 bg-brand-500/10 px-2.5 py-1 rounded-full font-medium">Personalized</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 text-center text-xs text-slate-400 italic">
+                            "Our goal isn't just selling cars—it's building lasting relationships across Orange County."
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-4 -right-4 w-full h-full bg-gradient-to-br from-brand-600/20 to-transparent rounded-2xl -z-10 blur-xl"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Experience Pillars -->
+    <section id="experience" class="py-20 bg-dark-950 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white font-serif-heading mb-4">
+                    The Dealership Experience
+                </h2>
+                <p class="text-slate-400">
+                    Discover why Central Florida drivers choose Sky Lake Motors for an easy and dependable vehicle search.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pillar 1 -->
+                <div class="glass-card rounded-2xl p-8 hover:border-brand-500/30 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-heart text-brand-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">No Pressure Service</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We provide a relaxed environment where you can take your time, review vehicle specs, ask questions, and decide on your terms with zero sales pressure.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="glass-card rounded-2xl p-8 hover:border-brand-500/30 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-comments text-brand-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Direct Communication</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Connect immediately with experienced team members who have answers. No call centers, no runarounds—just straightforward answers when you call or email.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="glass-card rounded-2xl p-8 hover:border-brand-500/30 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Vehicle Sourcing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Have a specific vehicle in mind? Our team utilizes established networks throughout Florida to help locate, inspect, and acquire the exact vehicle you desire.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concierge Services Offered -->
+    <section id="services" class="py-20 bg-dark-900 border-t border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="text-brand-500 text-xs font-semibold tracking-widest uppercase">Concierge Services</span>
+                <h2 class="text-3xl font-bold text-white font-serif-heading mt-2 mb-4">
+                    Tailored Automotive Solutions
+                </h2>
+                <p class="text-slate-400">
+                    Whether you are purchasing a vehicle, trading in your current ride, or seeking custom automotive sourcing in Orlando.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="p-8 rounded-2xl bg-dark-950 border border-white/10 flex gap-6 items-start">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0 text-xl">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Vehicle Sourcing Requests</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Looking for a specific make, model, or feature list? Share your preferences with our team, and we will leverage our regional network to source options matching your requirements.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-dark-950 border border-white/10 flex gap-6 items-start">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0 text-xl">
+                        <i class="fa-solid fa-car-rear"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Trade-Ins & Vehicle Purchases</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            We offer straightforward, fair evaluations for current vehicle owners. Visit our Landstreet Road location for an appraisal and receive a quick, competitive cash or trade offer.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-dark-950 border border-white/10 flex gap-6 items-start">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0 text-xl">
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Efficient Purchasing Process</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            We respect your time. Our sales specialists prepare all registration, title, and transfer documentation efficiently so you can complete your purchase smoothly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-dark-950 border border-white/10 flex gap-6 items-start">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0 text-xl">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Lender & Credit Union Friendly</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            We work seamlessly with local banks, national lenders, and Central Florida credit unions to facilitate pre-approvals and buyer financing smooth and simple.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Contact & Location Section -->
+    <section id="contact" class="py-20 bg-dark-900 border-t border-white/10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-500 text-xs font-semibold tracking-widest uppercase">Get In Touch</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white font-serif-heading mt-2 mb-4">
+                    Contact Our Sales Team
+                </h2>
+                <p class="text-slate-400">
+                    Reach out to Sky Lake Motors LLC today. Whether you have questions, need vehicle assistance, or want to schedule a visit, we are here to help.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info & Location Column -->
+                <div class="lg:col-span-5 space-y-8">
+                    
+                    <!-- Direct Contact Box -->
+                    <div class="bg-dark-950 p-8 rounded-2xl border border-white/10 space-y-6">
+                        <h3 class="text-xl font-bold text-white border-b border-white/10 pb-4">
+                            Contact Details
+                        </h3>
+
+                        <!-- Location -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase tracking-wider">Dealership Address</p>
+                                <p class="text-base font-semibold text-white mt-1">
+                                    Sky Lake Motors LLC
+                                </p>
+                                <p class="text-sm text-slate-300">
+                                    1375 W. Landstreet Road<br>
+                                    Orlando, FL 32824
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase tracking-wider">Phone</p>
+                                <a href="tel:3212097929" class="text-lg font-bold text-white hover:text-brand-500 transition-colors">
+                                    (321) 209-7929
+                                </a>
+                                <p class="text-xs text-slate-400 mt-0.5">Call or text our sales team</p>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase tracking-wider">Email</p>
+                                <a href="mailto:sales@skylakemotors.com" class="text-base font-semibold text-white hover:text-brand-500 transition-colors">
+                                    sales@skylakemotors.com
+                                </a>
+                                <p class="text-xs text-slate-400 mt-0.5">Prompt email response</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hours of Operation -->
+                    <div class="bg-dark-950 p-8 rounded-2xl border border-white/10">
+                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fa-regular fa-clock text-brand-500 text-lg"></i>
+                            Hours of Operation
+                        </h3>
+                        <div class="space-y-3 text-sm text-slate-300">
+                            <div class="flex justify-between border-b border-white/5 pb-2">
+                                <span class="text-slate-400">Monday - Friday</span>
+                                <span class="font-semibold text-white">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="flex justify-between border-b border-white/5 pb-2">
+                                <span class="text-slate-400">Saturday</span>
+                                <span class="font-semibold text-white">10:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Sunday</span>
+                                <span class="text-brand-500 font-medium">By Appointment</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Contact Form Column -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-8 sm:p-10 rounded-2xl border border-white/10 relative">
+                        <h3 class="text-2xl font-bold text-white font-serif-heading mb-2">
+                            Send a Message
+                        </h3>
+                        <p class="text-sm text-slate-400 mb-8">
+                            Fill out the form below and a team member from Sky Lake Motors LLC will reach out to you directly.
+                        </p>
+
+                        <form id="contactForm" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- First Name -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">First Name *</label>
+                                    <input type="text" required placeholder="John" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                                </div>
+                                <!-- Last Name -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Last Name *</label>
+                                    <input type="text" required placeholder="Doe" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- Phone -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Phone Number *</label>
+                                    <input type="tel" required placeholder="(321) 000-0000" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                                </div>
+                                <!-- Email -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Email Address *</label>
+                                    <input type="email" required placeholder="john@example.com" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                                </div>
+                            </div>
+
+                            <!-- Inquiry Type -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Inquiry Type</label>
+                                <select class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                                    <option value="general">General Vehicle Inquiry</option>
+                                    <option value="sourcing">Custom Vehicle Sourcing Request</option>
+                                    <option value="trade">Selling or Trading a Vehicle</option>
+                                    <option value="visit">Schedule a Visit / Walkthrough</option>
+                                </select>
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Your Message *</label>
+                                <textarea rows="4" required placeholder="How can Sky Lake Motors assist you today?" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors resize-none"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="w-full py-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl shadow-lg shadow-brand-600/30 transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                                <span>Send Message to Sales Team</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Map & Directions Banner -->
+    <section class="py-16 bg-dark-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-dark-900 via-dark-800 to-dark-900 rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-brand-500 text-xs font-bold uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-compass"></i> Visit Us in Orlando
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-white font-serif-heading mb-2">
+                        1375 W. Landstreet Rd, Orlando, FL 32824
+                    </h3>
+                    <p class="text-slate-400 max-w-xl text-sm">
+                        Conveniently located in Orange County near South Orange Blossom Trail and Florida's Turnpike.
+                    </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 shrink-0">
+                    <a href="https://maps.google.com/?q=1375+W+Landstreet+Rd,+Orlando,+FL+32824" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 border border-white/10">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Open in Google Maps</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 border-t border-white/10 py-12 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <span class="text-white font-bold tracking-tight">SKY LAKE MOTORS LLC</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+                    <a href="#about" class="hover:text-white transition-colors">About Us</a>
+                    <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+                    <a href="#services" class="hover:text-white transition-colors">Services</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Contact Sales</a>
+                </div>
+
+                <div class="text-xs text-center md:text-right text-slate-500">
+                    &copy; <span id="yearSpan"></span> Sky Lake Motors LLC. 1375 W. Landstreet Rd, Orlando, FL 32824.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div class="bg-dark-900 border border-white/15 rounded-2xl p-8 max-w-md w-full text-center space-y-4 shadow-2xl transform scale-95 transition-transform duration-300" id="modalCard">
+            <div class="w-16 h-16 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h4 class="text-2xl font-bold text-white font-serif-heading">Message Sent!</h4>
+            <p class="text-slate-300 text-sm leading-relaxed">
+                Thank you for contacting Sky Lake Motors LLC. Our sales team will get back to you promptly.
+            </p>
+            <button id="closeModalBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl transition-colors">
+                Close Window
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+        // Mobile Nav Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Contact Modal Logic
+        const contactForm = document.getElementById('contactForm');
+        const successModal = document.getElementById('successModal');
+        const modalCard = document.getElementById('modalCard');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        function openModal() {
+            successModal.classList.remove('opacity-0', 'pointer-events-none');
+            modalCard.classList.remove('scale-95');
+            modalCard.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            successModal.classList.add('opacity-0', 'pointer-events-none');
+            modalCard.classList.remove('scale-100');
+            modalCard.classList.add('scale-95');
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            openModal();
+            contactForm.reset();
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) closeModal();
+        });
+    </script>
+</body>
+</html>
