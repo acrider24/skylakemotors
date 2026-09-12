@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Lake Motors LLC | Auto Loan & Amortization Calculator</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN for interactive visual graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#0b1120',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155'
+                        },
+                        sky: {
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0369a1'
+                        },
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            900: '#064e3b'
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            900: '#78350f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0b1120;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #1e293b;
+            border-radius: 9999px;
+            border: 1px solid #334155;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7px;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #7dd3fc;
+        }
+        
+        /* Firefox Range Styling */
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #1e293b;
+            border-radius: 9999px;
+            border: 1px solid #334155;
+        }
+        input[type=range]::-moz-range-thumb {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+            border: none;
+        }
+
+        /* Custom Scrollbar for Schedule Table */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Subtle Glow Effects */
+        .glow-sky {
+            box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+        }
+
+        /* Hide Spin Buttons on Number Inputs */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-100 bg-[#0b1120]">
+
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-sky-500/20">
+                    <i class="fa-solid fa-car-side text-2xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">SKY LAKE MOTORS</h1>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/30 uppercase tracking-widest hidden sm:inline-block">LLC</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-400 flex items-center gap-2">
+                        <span>Interactive Auto Financing & Amortization Suite</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Action Header Controls -->
+            <div class="flex items-center gap-2 sm:gap-3 no-print">
+                <button id="btn-export-csv" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium border border-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-file-csv text-sky-400"></i>
+                    <span class="hidden md:inline">Export CSV</span>
+                </button>
+                <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium border border-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-print text-slate-400"></i>
+                    <span class="hidden md:inline">Print Quote</span>
+                </button>
+                <button id="btn-reset-header" class="px-3.5 py-2 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs sm:text-sm font-medium border border-sky-500/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span class="hidden sm:inline">Reset</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEFT PANEL: INPUT CONTROLS (5 cols on lg) -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Card 1: Loan Parameters -->
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-sky-500"></div>
+                    
+                    <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400 border border-sky-500/20">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-bold text-white">Vehicle Loan Settings</h2>
+                                <p class="text-xs text-slate-400">Configure vehicle pricing & financing parameters</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Vehicle Loan Amount ($) -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="loan-amount-input" class="text-xs sm:text-sm font-semibold text-slate-300">
+                                    Vehicle Loan Amount ($)
+                                </label>
+                                <span class="text-xs font-mono text-sky-400 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/40" id="loan-amount-display">$30,000</span>
+                            </div>
+                            <div class="relative rounded-xl shadow-sm">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-medium">
+                                    $
+                                </div>
+                                <input type="number" id="loan-amount-input" min="1000" max="150000" step="500" value="30000" 
+                                    class="block w-full rounded-xl bg-slate-950 border border-slate-700 pl-8 pr-4 py-3 text-white font-bold text-lg focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                            </div>
+                            <input type="range" id="loan-amount-slider" min="1000" max="150000" step="500" value="30000" class="w-full mt-2">
+                            <!-- Quick presets for amount -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <button type="button" onclick="setLoanAmount(15000)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">$15k</button>
+                                <button type="button" onclick="setLoanAmount(30000)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">$30k</button>
+                                <button type="button" onclick="setLoanAmount(45000)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">$45k</button>
+                                <button type="button" onclick="setLoanAmount(65000)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">$65k</button>
+                                <button type="button" onclick="setLoanAmount(90000)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">$90k</button>
+                            </div>
+                        </div>
+
+                        <!-- Interest Rate (APR %) -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="interest-rate-input" class="text-xs sm:text-sm font-semibold text-slate-300">
+                                    Interest Rate (APR %)
+                                </label>
+                                <span class="text-xs font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40" id="interest-rate-display">8.5%</span>
+                            </div>
+                            <div class="relative rounded-xl shadow-sm">
+                                <input type="number" id="interest-rate-input" min="0.1" max="35" step="0.1" value="8.5" 
+                                    class="block w-full rounded-xl bg-slate-950 border border-slate-700 pl-4 pr-10 py-3 text-white font-bold text-lg focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 font-medium">
+                                    %
+                                </div>
+                            </div>
+                            <input type="range" id="interest-rate-slider" min="0.1" max="35" step="0.1" value="8.5" class="w-full mt-2">
+                            <!-- Quick presets for APR -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <button type="button" onclick="setInterestRate(2.9)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">2.9% Promo</button>
+                                <button type="button" onclick="setInterestRate(4.9)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">4.9% Prime</button>
+                                <button type="button" onclick="setInterestRate(8.5)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">8.5% Std</button>
+                                <button type="button" onclick="setInterestRate(12.5)" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">12.5% Non-Prime</button>
+                            </div>
+                        </div>
+
+                        <!-- Loan Term (Months) -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="loan-term-input" class="text-xs sm:text-sm font-semibold text-slate-300">
+                                    Loan Term (Months)
+                                </label>
+                                <span class="text-xs font-mono text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700" id="loan-term-display">60 months (5 yrs)</span>
+                            </div>
+                            <input type="number" id="loan-term-input" min="12" max="120" step="1" value="60" 
+                                class="block w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 text-white font-bold text-lg focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                            
+                            <!-- Preset Buttons: 36m, 48m, 60m, 72m, 84m -->
+                            <div class="grid grid-cols-5 gap-2 pt-1" id="term-presets">
+                                <button type="button" onclick="setLoanTerm(36)" class="term-btn py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-white border border-slate-700 transition text-center" data-term="36">36m</button>
+                                <button type="button" onclick="setLoanTerm(48)" class="term-btn py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-white border border-slate-700 transition text-center" data-term="48">48m</button>
+                                <button type="button" onclick="setLoanTerm(60)" class="term-btn py-2 text-xs font-bold rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/50 transition text-center" data-term="60">60m</button>
+                                <button type="button" onclick="setLoanTerm(72)" class="term-btn py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-white border border-slate-700 transition text-center" data-term="72">72m</button>
+                                <button type="button" onclick="setLoanTerm(84)" class="term-btn py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-white border border-slate-700 transition text-center" data-term="84">84m</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/90 rounded-2xl border border-emerald-500/30 p-6 shadow-xl relative overflow-hidden glow-emerald">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+
+                    <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/30">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-bold text-white">Payment Acceleration Strategy</h2>
+                                <p class="text-xs text-slate-400">See how extra principal slashes total loan interest</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                            Smart Saver
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Total Monthly Payment Paid ($) -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="total-payment-input" class="text-xs sm:text-sm font-extrabold text-white flex items-center gap-1.5">
+                                    Total Monthly Payment Paid ($)
+                                    <i class="fa-solid fa-circle-info text-slate-500 hover:text-sky-400 cursor-pointer" title="The total amount you plan to send each month. Any amount above contract minimum goes directly to loan principal."></i>
+                                </label>
+                                <span id="payment-status-badge" class="text-xs font-mono font-medium text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+                                    +$84.53 / mo extra
+                                </span>
+                            </div>
+                            <div class="relative rounded-xl shadow-lg">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-emerald-400 font-extrabold text-xl">
+                                    $
+                                </div>
+                                <input type="number" id="total-payment-input" min="1" step="10" value="700" 
+                                    class="block w-full rounded-xl bg-slate-950 border-2 border-emerald-500/70 pl-9 pr-4 py-3.5 text-emerald-400 font-extrabold text-2xl focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition shadow-inner">
+                            </div>
+                        </div>
+
+                        <!-- Minimum Payment Helper Notice -->
+                        <div id="payment-alert" class="hidden p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2.5">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400 text-sm mt-0.5"></i>
+                            <div>
+                                <span class="font-bold">Below Minimum Required Payment!</span>
+                                <p class="mt-0.5 text-amber-200/80">Your entered payment is less than the required minimum (<span id="alert-req-min">$615.47</span>). The calculator defaults the effective payment to the standard contract minimum.</p>
+                            </div>
+                        </div>
+
+                        <!-- Quick Extra Payment Boost Buttons -->
+                        <div class="space-y-2 pt-1">
+                            <span class="text-xs font-semibold text-slate-400">Quick Payment Add-Ons:</span>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button type="button" onclick="addExtraToPayment(25)" class="py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">+ $25</button>
+                                <button type="button" onclick="addExtraToPayment(50)" class="py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">+ $50</button>
+                                <button type="button" onclick="addExtraToPayment(100)" class="py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">+ $100</button>
+                                <button type="button" onclick="resetPaymentToMinimum()" class="py-1.5 text-xs font-semibold rounded-lg bg-sky-950 hover:bg-sky-900 text-sky-400 border border-sky-800/60 transition">Minimum</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Controls Card -->
+                <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="text-xs text-slate-400">
+                        <i class="fa-solid fa-rotate text-slate-500 mr-1"></i> Need to start over?
+                    </div>
+                    <button id="btn-reset-main" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-rose-950 hover:text-rose-400 hover:border-rose-800/50 text-slate-300 border border-slate-700 transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        Reset All Defaults
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-7 space-y-6">
+
+                <!-- Summary Metrics Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    
+                    <!-- Card 1: Contract Payment Owed -->
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-5 shadow-lg relative overflow-hidden hover:border-slate-700 transition">
+                        <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-2">
+                            <span>Contract Payment Owed</span>
+                            <i class="fa-solid fa-file-contract text-sky-400"></i>
+                        </div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="card-req-payment">
+                            $615.47
+                        </div>
+                        <div class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                            <span>Standard required monthly minimum</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Calculated Extra Payment -->
+                    <div class="bg-slate-900/90 rounded-2xl border border-emerald-500/30 p-5 shadow-lg relative overflow-hidden hover:border-emerald-500/50 transition">
+                        <div class="flex items-center justify-between text-emerald-400 text-xs font-semibold mb-2">
+                            <span>Calculated Extra Principal</span>
+                            <i class="fa-solid fa-circle-arrow-up text-emerald-400"></i>
+                        </div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight" id="card-extra-payment">
+                            +$84.53
+                        </div>
+                        <div class="text-xs text-slate-400 mt-1">
+                            Applied directly to balance every month
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Total Interest Paid & Interest Saved -->
+                    <div class="bg-slate-900/90 rounded-2xl border border-amber-500/30 p-5 shadow-lg relative overflow-hidden hover:border-amber-500/50 transition">
+                        <div class="flex items-center justify-between text-amber-400 text-xs font-semibold mb-2">
+                            <span>Total Interest Paid</span>
+                            <i class="fa-solid fa-coins text-amber-400"></i>
+                        </div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight" id="card-total-interest">
+                            $5,412.30
+                        </div>
+                        <div class="mt-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold" id="card-interest-saved-badge">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                            <span id="card-interest-saved-text">Saves $1,515.90</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Actual Payoff Term & Time Saved -->
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-5 shadow-lg relative overflow-hidden hover:border-slate-700 transition">
+                        <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-2">
+                            <span>Actual Payoff Term</span>
+                            <i class="fa-solid fa-calendar-check text-sky-400"></i>
+                        </div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="card-payoff-term">
+                            51 Months
+                        </div>
+                        <div class="mt-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/30 text-xs font-semibold" id="card-term-saved-badge">
+                            <i class="fa-solid fa-clock"></i>
+                            <span id="card-term-saved-text">9 months early!</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                        <div>
+                            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie text-sky-400"></i>
+                                Lifetime Cost Breakdown
+                            </h3>
+                            <p class="text-xs text-slate-400">Visual allocation of loan principal vs. interest paid</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400">Grand Total Out-of-Pocket:</span>
+                            <div class="text-lg font-extrabold text-sky-400" id="grand-total-paid-header">$35,412.30</div>
+                        </div>
+                    </div>
+
+                    <!-- Stacked Percentage Progress Bar -->
+                    <div class="space-y-2">
+                        <div class="h-5 w-full bg-slate-950 rounded-full overflow-hidden p-0.5 flex border border-slate-800 shadow-inner">
+                            <div id="bar-principal" class="h-full bg-gradient-to-r from-sky-500 to-sky-400 rounded-l-full transition-all duration-500" style="width: 84.7%;"></div>
+                            <div id="bar-interest" class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-r-full transition-all duration-500" style="width: 15.3%;"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-semibold pt-1">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-sky-400 inline-block"></span>
+                                <span class="text-slate-300">Principal: <span id="pct-principal" class="font-mono text-white">$30,000.00 (84.7%)</span></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+                                <span class="text-slate-300">Interest: <span id="pct-interest" class="font-mono text-amber-400">$5,412.30 (15.3%)</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Amortization Curve Chart (Chart.js) -->
+                    <div class="pt-4 border-t border-slate-800/80">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Balance Payoff Trajectory</span>
+                            <span class="text-xs text-slate-500">Standard vs Accelerated Payment</span>
+                        </div>
+                        <div class="relative h-56 w-full">
+                            <canvas id="amortizationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-10 bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-5">
+            
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-table-list text-sky-400"></i>
+                        Month-by-Month Amortization Schedule
+                    </h3>
+                    <p class="text-xs text-slate-400">Detailed breakdown of principal reduction, interest costs, and remaining balance</p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Search Input -->
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                        <input type="text" id="table-search" placeholder="Search Month #..." 
+                            class="pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-sky-500 focus:outline-none w-36 sm:w-48">
+                    </div>
+
+                    <!-- View Toggle: All Months vs Yearly Summary -->
+                    <div class="flex rounded-xl bg-slate-950 p-1 border border-slate-800">
+                        <button type="button" id="btn-view-monthly" class="px-3 py-1 text-xs font-semibold rounded-lg bg-sky-500 text-slate-950 transition">Monthly</button>
+                        <button type="button" id="btn-view-yearly" class="px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition">Yearly Summary</button>
+                    </div>
+
+                    <!-- CSV Export Button -->
+                    <button id="btn-export-csv-table" class="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-semibold border border-emerald-500/30 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Download CSV</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Header Summary Banner -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-950/70 p-4 rounded-xl border border-slate-800/80 text-xs">
+                <div>
+                    <span class="text-slate-400 block">Total Payments:</span>
+                    <span id="tbl-sum-payments" class="font-extrabold text-white text-sm">$35,412.30</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block">Total Principal Paid:</span>
+                    <span id="tbl-sum-principal" class="font-extrabold text-sky-400 text-sm">$30,000.00</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block">Total Interest Paid:</span>
+                    <span id="tbl-sum-interest" class="font-extrabold text-amber-400 text-sm">$5,412.30</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block">Interest Savings:</span>
+                    <span id="tbl-sum-savings" class="font-extrabold text-emerald-400 text-sm">$1,515.90</span>
+                </div>
+            </div>
+
+            <!-- Scrollable Table Body -->
+            <div class="overflow-x-auto max-h-[500px] overflow-y-auto custom-scrollbar rounded-xl border border-slate-800">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-950 text-slate-400 sticky top-0 z-10 border-b border-slate-800 shadow-md">
+                        <tr>
+                            <th scope="col" class="py-3.5 px-4 font-bold">Month #</th>
+                            <th scope="col" class="py-3.5 px-4 font-bold">Total Payment</th>
+                            <th scope="col" class="py-3.5 px-4 font-bold">Standard Principal</th>
+                            <th scope="col" class="py-3.5 px-4 font-bold text-emerald-400">Extra Principal</th>
+                            <th scope="col" class="py-3.5 px-4 font-bold text-amber-400">Interest Paid</th>
+                            <th scope="col" class="py-3.5 px-4 font-bold">Remaining Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="amortization-table-body" class="divide-y divide-slate-800/60 bg-slate-900/40 font-mono">
+                        <!-- Table rows generated dynamically by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Dealership Footer -->
+    <footer class="mt-16 border-t border-slate-800 bg-slate-950/80 py-8 text-xs text-slate-500 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <div class="flex items-center justify-center gap-2 text-slate-400 font-bold">
+                <i class="fa-solid fa-car text-sky-400"></i>
+                <span>Sky Lake Motors LLC — Premium Auto Sales & Financing</span>
+            </div>
+            <p class="max-w-3xl mx-auto leading-relaxed text-slate-500">
+                Disclaimer: The calculations provided by this tool are estimates for illustrative and planning purposes only. Actual interest rates, payment schedules, taxes, registration fees, and loan terms are subject to credit approval and dealership financing policy.
+            </p>
+            <p>© 2026 Sky Lake Motors LLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator State Variables
+        let state = {
+            loanAmount: 30000,
+            annualRate: 8.5,
+            termMonths: 60,
+            totalPaymentInput: 700,
+            isPaymentCustomized: false,
+            viewMode: 'monthly' // 'monthly' or 'yearly'
+        };
+
+        let chartInstance = null;
+        let cachedScheduleData = null;
+
+        // DOM Elements References
+        const loanAmountInput = document.getElementById('loan-amount-input');
+        const loanAmountSlider = document.getElementById('loan-amount-slider');
+        const loanAmountDisplay = document.getElementById('loan-amount-display');
+
+        const interestRateInput = document.getElementById('interest-rate-input');
+        const interestRateSlider = document.getElementById('interest-rate-slider');
+        const interestRateDisplay = document.getElementById('interest-rate-display');
+
+        const loanTermInput = document.getElementById('loan-term-input');
+        const loanTermDisplay = document.getElementById('loan-term-display');
+
+        const totalPaymentInput = document.getElementById('total-payment-input');
+        const paymentStatusBadge = document.getElementById('payment-status-badge');
+        const paymentAlert = document.getElementById('payment-alert');
+        const alertReqMin = document.getElementById('alert-req-min');
+
+        // Dashboard Summary Card Elements
+        const cardReqPayment = document.getElementById('card-req-payment');
+        const cardExtraPayment = document.getElementById('card-extra-payment');
+        const cardTotalInterest = document.getElementById('card-total-interest');
+        const cardInterestSavedText = document.getElementById('card-interest-saved-text');
+        const cardPayoffTerm = document.getElementById('card-payoff-term');
+        const cardTermSavedText = document.getElementById('card-term-saved-text');
+
+        // Lifetime Progress Elements
+        const grandTotalPaidHeader = document.getElementById('grand-total-paid-header');
+        const barPrincipal = document.getElementById('bar-principal');
+        const barInterest = document.getElementById('bar-interest');
+        const pctPrincipal = document.getElementById('pct-principal');
+        const pctInterest = document.getElementById('pct-interest');
+
+        // Table Summary Elements
+        const tblSumPayments = document.getElementById('tbl-sum-payments');
+        const tblSumPrincipal = document.getElementById('tbl-sum-principal');
+        const tblSumInterest = document.getElementById('tbl-sum-interest');
+        const tblSumSavings = document.getElementById('tbl-sum-savings');
+        const tableBody = document.getElementById('amortization-table-body');
+        const tableSearch = document.getElementById('table-search');
+
+        // Helper formatting functions
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(val || 0);
+        }
+
+        function formatCurrencyInteger(val) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(val || 0);
+        }
+
+        /**
+         * Calculates required standard monthly payment
+         * Formula: M = P * [r(1+r)^n] / [(1+r)^n - 1]
+         */
+        function calculateStandardMonthlyPayment(principal, annualRatePct, termMonths) {
+            if (annualRatePct === 0) return principal / termMonths;
+            const r = (annualRatePct / 100) / 12;
+            const numerator = r * Math.pow(1 + r, termMonths);
+            const denominator = Math.pow(1 + r, termMonths) - 1;
+            return principal * (numerator / denominator);
+        }
+
+        function calculateFullAmortization() {
+            const P = state.loanAmount;
+            const ratePct = state.annualRate;
+            const N = state.termMonths;
+            const r = (ratePct / 100) / 12;
+
+            const reqPayment = calculateStandardMonthlyPayment(P, ratePct, N);
+
+            // Determine effective user payment & extra principal
+            let enteredPayment = parseFloat(state.totalPaymentInput) || reqPayment;
+            let isBelowMin = false;
+
+            if (enteredPayment < reqPayment - 0.01) {
+                isBelowMin = true;
+                enteredPayment = reqPayment;
+            }
+
+            const extraPrincipal = Math.max(0, enteredPayment - reqPayment);
+
+            // 1. Calculate Baseline Trajectory (No Extra Payment)
+            let baseBalance = P;
+            let baseTotalInterest = 0;
+            let baseTotalPaid = 0;
+            let baseTrajectory = [P];
+
+            for (let m = 1; m <= N; m++) {
+                let mInterest = baseBalance * r;
+                let mPrincipal = Math.min(baseBalance, reqPayment - mInterest);
+                baseBalance -= mPrincipal;
+                baseTotalInterest += mInterest;
+                baseTotalPaid += (mPrincipal + mInterest);
+                baseTrajectory.push(Math.max(0, baseBalance));
+            }
+
+            // 2. Calculate Accelerated Trajectory (With Extra Payment)
+            let actualBalance = P;
+            let actualTotalInterest = 0;
+            let actualTotalPaid = 0;
+            let actualTrajectory = [P];
+            let monthlyRows = [];
+
+            let month = 0;
+            const maxMonthsCap = 600; // Safety guardrail
+
+            while (actualBalance > 0.001 && month < maxMonthsCap) {
+                month++;
+                let interestForMonth = actualBalance * r;
+                
+                // Standard principal portion
+                let stdPrincipalPortion = Math.min(actualBalance, reqPayment - interestForMonth);
+                
+                // Remaining balance after standard principal
+                let remainingAfterStd = actualBalance - stdPrincipalPortion;
+                
+                // Extra principal portion
+                let extraPortion = Math.min(remainingAfterStd, extraPrincipal);
+
+                let totalPrincipalThisMonth = stdPrincipalPortion + extraPortion;
+                let totalPaymentThisMonth = totalPrincipalThisMonth + interestForMonth;
+
+                actualBalance -= totalPrincipalThisMonth;
+                if (actualBalance < 0.001) actualBalance = 0;
+
+                actualTotalInterest += interestForMonth;
+                actualTotalPaid += totalPaymentThisMonth;
+
+                actualTrajectory.push(actualBalance);
+
+                monthlyRows.push({
+                    month: month,
+                    totalPayment: totalPaymentThisMonth,
+                    stdPrincipal: stdPrincipalPortion,
+                    extraPrincipal: extraPortion,
+                    interest: interestForMonth,
+                    remainingBalance: actualBalance
+                });
+            }
+
+            const interestSaved = Math.max(0, baseTotalInterest - actualTotalInterest);
+            const monthsSaved = Math.max(0, N - month);
+
+            return {
+                reqPayment,
+                extraPrincipal,
+                enteredPayment,
+                isBelowMin,
+                baseTotalInterest,
+                actualTotalInterest,
+                interestSaved,
+                actualPayoffMonths: month,
+                monthsSaved,
+                actualTotalPaid,
+                monthlyRows,
+                baseTrajectory,
+                actualTrajectory
+            };
+        }
+
+        function updateUI() {
+            // Synchronize input fields & labels
+            loanAmountDisplay.textContent = formatCurrencyInteger(state.loanAmount);
+            loanAmountInput.value = state.loanAmount;
+            loanAmountSlider.value = state.loanAmount;
+
+            interestRateDisplay.textContent = state.annualRate.toFixed(1) + '%';
+            interestRateInput.value = state.annualRate;
+            interestRateSlider.value = state.annualRate;
+
+            loanTermDisplay.textContent = `${state.termMonths} months (${(state.termMonths / 12).toFixed(1)} yrs)`;
+            loanTermInput.value = state.termMonths;
+
+            // Highlight active term preset button
+            document.querySelectorAll('.term-btn').forEach(btn => {
+                const termVal = parseInt(btn.getAttribute('data-term'));
+                if (termVal === state.termMonths) {
+                    btn.className = "term-btn py-2 text-xs font-bold rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/50 transition text-center";
+                } else {
+                    btn.className = "term-btn py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-sky-600/30 text-slate-300 hover:text-white border border-slate-700 transition text-center";
+                }
+            });
+
+            // Calculate amortization
+            let result = calculateFullAmortization();
+
+            // Adjust initial default payment if required minimum exceeds original $700 default
+            if (!state.isPaymentCustomized && state.totalPaymentInput === 700 && result.reqPayment > 700) {
+                const newDefault = Math.ceil((result.reqPayment + 50) / 10) * 10;
+                totalPaymentInput.value = newDefault;
+                state.totalPaymentInput = newDefault;
+                result = calculateFullAmortization();
+            }
+
+            cachedScheduleData = result;
+
+            // Update Payment Alert Banner
+            if (result.isBelowMin) {
+                paymentAlert.classList.remove('hidden');
+                alertReqMin.textContent = formatCurrency(result.reqPayment);
+                paymentStatusBadge.textContent = "Minimum Payment Default";
+                paymentStatusBadge.className = "text-xs font-mono font-medium text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40";
+            } else {
+                paymentAlert.classList.add('hidden');
+                if (result.extraPrincipal > 0) {
+                    paymentStatusBadge.textContent = `+${formatCurrency(result.extraPrincipal)} / mo extra`;
+                    paymentStatusBadge.className = "text-xs font-mono font-medium text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40";
+                } else {
+                    paymentStatusBadge.textContent = "Standard Contract Minimum";
+                    paymentStatusBadge.className = "text-xs font-mono font-medium text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700";
+                }
+            }
+
+            // Update Summary Cards
+            cardReqPayment.textContent = formatCurrency(result.reqPayment);
+            cardExtraPayment.textContent = result.extraPrincipal > 0 ? `+${formatCurrency(result.extraPrincipal)}` : '$0.00';
+            cardTotalInterest.textContent = formatCurrency(result.actualTotalInterest);
+
+            if (result.interestSaved > 0.5) {
+                cardInterestSavedText.textContent = `Saves ${formatCurrency(result.interestSaved)} in interest`;
+            } else {
+                cardInterestSavedText.textContent = `Standard contract interest`;
+            }
+
+            const years = Math.floor(result.actualPayoffMonths / 12);
+            const remM = result.actualPayoffMonths % 12;
+            let termStr = `${result.actualPayoffMonths} Months`;
+            if (years > 0) {
+                termStr += ` (${years}y ${remM}m)`;
+            }
+            cardPayoffTerm.textContent = termStr;
+
+            if (result.monthsSaved > 0) {
+                cardTermSavedText.textContent = `${result.monthsSaved} month${result.monthsSaved > 1 ? 's' : ''} early payoff!`;
+            } else {
+                cardTermSavedText.textContent = `Full standard term`;
+            }
+
+            // Update Lifetime Cost Progress Bar
+            const grandTotal = result.actualTotalPaid;
+            grandTotalPaidHeader.textContent = formatCurrency(grandTotal);
+
+            const principalPct = grandTotal > 0 ? (state.loanAmount / grandTotal) * 100 : 0;
+            const interestPct = grandTotal > 0 ? (result.actualTotalInterest / grandTotal) * 100 : 0;
+
+            barPrincipal.style.width = `${principalPct}%`;
+            barInterest.style.width = `${interestPct}%`;
+
+            pctPrincipal.textContent = `${formatCurrency(state.loanAmount)} (${principalPct.toFixed(1)}%)`;
+            pctInterest.textContent = `${formatCurrency(result.actualTotalInterest)} (${interestPct.toFixed(1)}%)`;
+
+            // Update Table Summary Banner
+            tblSumPayments.textContent = formatCurrency(result.actualTotalPaid);
+            tblSumPrincipal.textContent = formatCurrency(state.loanAmount);
+            tblSumInterest.textContent = formatCurrency(result.actualTotalInterest);
+            tblSumSavings.textContent = formatCurrency(result.interestSaved);
+
+            // Render Amortization Chart
+            renderChart(result);
+
+            // Render Amortization Table Rows
+            renderTableRows(result.monthlyRows);
+        }
+
+        function renderChart(result) {
+            if (typeof Chart === 'undefined') return;
+
+            const ctx = document.getElementById('amortizationChart').getContext('2d');
+            const maxM = Math.max(state.termMonths, result.actualPayoffMonths);
+            const labels = Array.from({ length: maxM + 1 }, (_, i) => i === 0 ? 'Start' : `M${i}`);
+
+            const actualData = result.actualTrajectory;
+            const baseData = result.baseTrajectory;
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Accelerated Payoff',
+                            data: actualData,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.2,
+                            pointRadius: 0,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Standard Schedule',
+                            data: baseData,
+                            borderColor: '#38bdf8',
+                            borderDash: [5, 5],
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#94a3b8',
+                                font: { family: 'Inter', size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            titleColor: '#38bdf8',
+                            bodyColor: '#f8fafc',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(51, 65, 85, 0.3)' },
+                            ticks: { color: '#64748b', font: { size: 10 }, maxTicksLimit: 12 }
+                        },
+                        y: {
+                            grid: { color: 'rgba(51, 65, 85, 0.3)' },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 10 },
+                                callback: function(val) {
+                                    return '$' + (val / 1000) + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTableRows(monthlyRows) {
+            const searchQuery = (tableSearch.value || '').trim().toLowerCase();
+            tableBody.innerHTML = '';
+
+            let filtered = monthlyRows || [];
+
+            if (searchQuery) {
+                filtered = (monthlyRows || []).filter(r => r.month.toString().includes(searchQuery));
+            }
+
+            if (state.viewMode === 'yearly') {
+                const yearlyMap = {};
+                (monthlyRows || []).forEach(r => {
+                    const yr = Math.ceil(r.month / 12);
+                    if (!yearlyMap[yr]) {
+                        yearlyMap[yr] = {
+                            year: yr,
+                            totalPayment: 0,
+                            stdPrincipal: 0,
+                            extraPrincipal: 0,
+                            interest: 0,
+                            endBalance: r.remainingBalance
+                        };
+                    }
+                    yearlyMap[yr].totalPayment += r.totalPayment;
+                    yearlyMap[yr].stdPrincipal += r.stdPrincipal;
+                    yearlyMap[yr].extraPrincipal += r.extraPrincipal;
+                    yearlyMap[yr].interest += r.interest;
+                    yearlyMap[yr].endBalance = r.remainingBalance;
+                });
+
+                const yearlyRows = Object.values(yearlyMap);
+                if (yearlyRows.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">No matching records found.</td></tr>`;
+                    return;
+                }
+
+                yearlyRows.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-800/50 transition border-b border-slate-800/40";
+                    tr.innerHTML = `
+                        <td class="py-3 px-4 font-bold text-sky-400">Year ${row.year}</td>
+                        <td class="py-3 px-4 font-semibold text-white">${formatCurrency(row.totalPayment)}</td>
+                        <td class="py-3 px-4 text-slate-300">${formatCurrency(row.stdPrincipal)}</td>
+                        <td class="py-3 px-4 font-semibold ${row.extraPrincipal > 0 ? 'text-emerald-400' : 'text-slate-500'}">
+                            ${row.extraPrincipal > 0 ? '+' + formatCurrency(row.extraPrincipal) : '$0.00'}
+                        </td>
+                        <td class="py-3 px-4 font-semibold text-amber-400">${formatCurrency(row.interest)}</td>
+                        <td class="py-3 px-4 font-bold text-white">${formatCurrency(row.endBalance)}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            } else {
+                if (filtered.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">No matching months found.</td></tr>`;
+                    return;
+                }
+
+                filtered.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-800/50 transition border-b border-slate-800/40";
+                    tr.innerHTML = `
+                        <td class="py-3 px-4 font-bold text-slate-400">Month ${row.month}</td>
+                        <td class="py-3 px-4 font-semibold text-white">${formatCurrency(row.totalPayment)}</td>
+                        <td class="py-3 px-4 text-slate-300">${formatCurrency(row.stdPrincipal)}</td>
+                        <td class="py-3 px-4 font-semibold ${row.extraPrincipal > 0 ? 'text-emerald-400' : 'text-slate-500'}">
+                            ${row.extraPrincipal > 0 ? '+' + formatCurrency(row.extraPrincipal) : '$0.00'}
+                        </td>
+                        <td class="py-3 px-4 font-semibold text-amber-400">${formatCurrency(row.interest)}</td>
+                        <td class="py-3 px-4 font-bold text-white">${formatCurrency(row.remainingBalance)}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
+        }
+
+        loanAmountInput.addEventListener('input', (e) => {
+            let val = parseFloat(e.target.value) || 1000;
+            state.loanAmount = Math.min(Math.max(val, 1000), 150000);
+            updateUI();
+        });
+        loanAmountSlider.addEventListener('input', (e) => {
+            state.loanAmount = parseFloat(e.target.value);
+            updateUI();
+        });
+
+        interestRateInput.addEventListener('input', (e) => {
+            let val = parseFloat(e.target.value) || 0.1;
+            state.annualRate = Math.min(Math.max(val, 0.1), 35);
+            updateUI();
+        });
+        interestRateSlider.addEventListener('input', (e) => {
+            state.annualRate = parseFloat(e.target.value);
+            updateUI();
+        });
+
+        loanTermInput.addEventListener('input', (e) => {
+            let val = parseInt(e.target.value) || 12;
+            state.termMonths = Math.min(Math.max(val, 12), 120);
+            updateUI();
+        });
+
+        totalPaymentInput.addEventListener('input', (e) => {
+            state.isPaymentCustomized = true;
+            state.totalPaymentInput = parseFloat(e.target.value) || 0;
+            updateUI();
+        });
+
+        tableSearch.addEventListener('input', () => {
+            if (cachedScheduleData) {
+                renderTableRows(cachedScheduleData.monthlyRows);
+            }
+        });
+
+        function setLoanAmount(amt) {
+            state.loanAmount = amt;
+            updateUI();
+        }
+
+        function setInterestRate(rate) {
+            state.annualRate = rate;
+            updateUI();
+        }
+
+        function setLoanTerm(months) {
+            state.termMonths = months;
+            updateUI();
+        }
+
+        function addExtraToPayment(amount) {
+            const req = calculateStandardMonthlyPayment(state.loanAmount, state.annualRate, state.termMonths);
+            const current = parseFloat(totalPaymentInput.value) || req;
+            const newPayment = Math.max(req, current) + amount;
+            state.isPaymentCustomized = true;
+            state.totalPaymentInput = newPayment;
+            totalPaymentInput.value = newPayment;
+            updateUI();
+        }
+
+        function resetPaymentToMinimum() {
+            const req = calculateStandardMonthlyPayment(state.loanAmount, state.annualRate, state.termMonths);
+            state.isPaymentCustomized = true;
+            state.totalPaymentInput = Math.ceil(req * 100) / 100;
+            totalPaymentInput.value = state.totalPaymentInput;
+            updateUI();
+        }
+
+        function resetAllDefaults() {
+            state = {
+                loanAmount: 30000,
+                annualRate: 8.5,
+                termMonths: 60,
+                totalPaymentInput: 700,
+                isPaymentCustomized: false,
+                viewMode: 'monthly'
+            };
+            totalPaymentInput.value = 700;
+            tableSearch.value = '';
+            document.getElementById('btn-view-monthly').className = "px-3 py-1 text-xs font-semibold rounded-lg bg-sky-500 text-slate-950 transition";
+            document.getElementById('btn-view-yearly').className = "px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition";
+            updateUI();
+        }
+
+        document.getElementById('btn-reset-main').addEventListener('click', resetAllDefaults);
+        document.getElementById('btn-reset-header').addEventListener('click', resetAllDefaults);
+
+        document.getElementById('btn-view-monthly').addEventListener('click', function() {
+            state.viewMode = 'monthly';
+            this.className = "px-3 py-1 text-xs font-semibold rounded-lg bg-sky-500 text-slate-950 transition";
+            document.getElementById('btn-view-yearly').className = "px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition";
+            if (cachedScheduleData) renderTableRows(cachedScheduleData.monthlyRows);
+        });
+
+        document.getElementById('btn-view-yearly').addEventListener('click', function() {
+            state.viewMode = 'yearly';
+            this.className = "px-3 py-1 text-xs font-semibold rounded-lg bg-sky-500 text-slate-950 transition";
+            document.getElementById('btn-view-monthly').className = "px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition";
+            if (cachedScheduleData) renderTableRows(cachedScheduleData.monthlyRows);
+        });
+
+        function exportScheduleCSV() {
+            if (!cachedScheduleData || !cachedScheduleData.monthlyRows) return;
+
+            let csvContent = "Month,Total Payment,Standard Principal,Extra Principal,Interest Paid,Remaining Balance\n";
+            cachedScheduleData.monthlyRows.forEach(row => {
+                csvContent += `${row.month},${row.totalPayment.toFixed(2)},${row.stdPrincipal.toFixed(2)},${row.extraPrincipal.toFixed(2)},${row.interest.toFixed(2)},${row.remainingBalance.toFixed(2)}\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `SkyLakeMotors_Amortization_Schedule_${state.loanAmount}_${state.termMonths}m.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        document.getElementById('btn-export-csv').addEventListener('click', exportScheduleCSV);
+        document.getElementById('btn-export-csv-table').addEventListener('click', exportScheduleCSV);
+
+        // Initialize Application on Window Load
+        window.addEventListener('DOMContentLoaded', updateUI);
+    </script>
+</body>
+</html>
